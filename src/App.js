@@ -32,9 +32,9 @@ function App() {
 
   const [showServiceRequestError, setShowServiceRequestError] = useState(false);
 
-  // useEffect(() => {
-  //   getTaskServiceRequestDefaultAll();
-  // }, [keyword]);
+  useEffect(() => {
+    getTaskServiceRequestDefaultAll();
+  }, [keyword]);
 
   const requestWrapper = async (service) => {
     try {
