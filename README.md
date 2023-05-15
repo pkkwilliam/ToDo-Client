@@ -15,4 +15,4 @@ Node.JS application TODO-Service https://github.com/pkkwilliam/Todo-Service
 ### Something to Improve
 
 - "Done" list can be sorted by completeTime to have a better organization and understanding of the chronological order in which tasks were completed.
-- The service bandwidth can be optimized by modifying the state array after each service request, effectively reducing unnecessary data transmission and improving overall efficiency.
+- The service bandwidth can be optimized by modifying the state array after each service request, effectively reducing data transmission and improving overall efficiency.
