@@ -31,7 +31,7 @@ const Search = (props) => {
       onBlur={(event) => debounceOnChangeKeyword(event.target.value)}
       onChange={(event) => debounceOnChangeKeyword(event.target.value)}
       onFocus={() => setLastChangeTime(new Date())}
-      placeholder="500ms Debounce Search"
+      placeholder="Search"
       width="auto"
     />
   );
