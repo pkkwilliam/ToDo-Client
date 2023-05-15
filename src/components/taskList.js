@@ -1,4 +1,12 @@
-import { Box, Checkbox, HStack, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Checkbox,
+  Divider,
+  HStack,
+  Heading,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { TASK_DONE, TASK_PENDING } from "../constants/constants";
 
@@ -40,6 +48,7 @@ const TaskList = (props) => {
           {`Total: ${tasks.length}`}
         </Text>
       </HStack>
+      <Divider />
       {DisplayTasks}
     </Stack>
   );

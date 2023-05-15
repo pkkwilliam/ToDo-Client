@@ -7,6 +7,7 @@ import {
   Box,
   CloseButton,
   HStack,
+  Link,
 } from "@chakra-ui/react";
 
 const ServiceRequestAlert = (props) => {
@@ -18,7 +19,14 @@ const ServiceRequestAlert = (props) => {
         <Box>
           <AlertTitle>Request Failed</AlertTitle>
           <AlertDescription>
-            Http Request Failed, Please Check Status of Service API
+            Http Request Failed, Please Run and Check Status of Service API.(
+            <Link
+              href="https://github.com/pkkwilliam/Todo-Service"
+              target="_blank"
+            >
+              https://github.com/pkkwilliam/Todo-Service
+            </Link>
+            )
           </AlertDescription>
         </Box>
       </HStack>

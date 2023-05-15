@@ -8,6 +8,7 @@ import {
   serviceRequest,
 } from "./util/serviceRequest";
 import AddTask from "./components/addTask";
+import CountDown from "./components/countDown";
 import DeleteAllLink from "./components/deleteAllLink";
 import Header from "./components/header";
 import Search from "./components/search";
@@ -15,7 +16,6 @@ import ServiceRequestAlert from "./components/serviceReqiestAlert";
 import TaskList from "./components/taskList";
 import { TASK_DONE, TASK_PENDING } from "./constants/constants";
 
-const REFRESH_INTERVAL = 60000;
 const SEARCH_BY_KEYWORD_DEBOUNCE_LENGHT = 500;
 
 const DEFAULT_STATUS_TASK = { tasks: [] };
@@ -29,15 +29,12 @@ function App() {
   const [doneTasks, setDoneTasks] = useState(DEFAULT_STATUS_TASK);
   const [keyword, setKeyword] = useState("");
   const [pendingTasks, setPendingTasks] = useState(DEFAULT_STATUS_TASK);
+
   const [showServiceRequestError, setShowServiceRequestError] = useState(false);
 
-  useEffect(() => {
-    setInterval(() => getTaskServiceRequestDefaultAll(), REFRESH_INTERVAL);
-  }, []);
-
-  useEffect(() => {
-    getTaskServiceRequestDefaultAll();
-  }, [keyword]);
+  // useEffect(() => {
+  //   getTaskServiceRequestDefaultAll();
+  // }, [keyword]);
 
   const requestWrapper = async (service) => {
     try {
@@ -57,7 +54,8 @@ function App() {
 
   const deleteAllTaskServiceRequest = async () => {
     await requestWrapper(DELETE_ALL_TASKS());
-    await getTaskServiceRequestDefaultAll();
+    setDoneTasks(DEFAULT_STATUS_TASK);
+    setPendingTasks(DEFAULT_STATUS_TASK);
   };
 
   const getTaskServiceRequestDefaultAll = async () => {
@@ -98,7 +96,12 @@ function App() {
             deleteAllTaskServiceRequest={deleteAllTaskServiceRequest}
           />
         </Flex>
-        <Flex direction="row" justifyContent="space-between" marginTop={20}>
+        <Flex alignItems="center" justifyContent="end" marginTop={5}>
+          <CountDown
+            onCountDownIntervalReached={getTaskServiceRequestDefaultAll}
+          />
+        </Flex>
+        <Flex direction="row" justifyContent="space-between" marginTop={10}>
           <AddTask createTaskServiceRequest={createTaskServiceRequest} />
           <Box marginLeft={5}>
             <Search
@@ -107,17 +110,21 @@ function App() {
             />
           </Box>
         </Flex>
-        <Flex direction="row" justifyContent="space-between" marginTop={10}>
-          <TaskList
-            headerLabel="To Do"
-            tasks={pendingTasks.tasks}
-            updateTaskServiceRequest={updateTaskServiceRequest}
-          />
-          <TaskList
-            headerLabel="Done"
-            tasks={doneTasks.tasks}
-            updateTaskServiceRequest={updateTaskServiceRequest}
-          />
+        <Flex direction="row" marginTop={10}>
+          <Box flex={1}>
+            <TaskList
+              headerLabel="To Do"
+              tasks={pendingTasks.tasks}
+              updateTaskServiceRequest={updateTaskServiceRequest}
+            />
+          </Box>
+          <Box flex={1} marginLeft={10}>
+            <TaskList
+              headerLabel="Done"
+              tasks={doneTasks.tasks}
+              updateTaskServiceRequest={updateTaskServiceRequest}
+            />
+          </Box>
         </Flex>
       </Box>
     </ChakraProvider>
